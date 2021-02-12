@@ -18,6 +18,11 @@ class Guest(db.Model):
 # - description: String column
 # - date_and_time: DateTime column
 # - guests: relationship to "Guest" table with a secondary table
+    name = db.Column(db.String(80), nullable = False)
+    email = db.Column(db.String(80), nullable = False)
+    phone = db.Column(db.String(80), nullable = False)
+    events_attending = db.relationship('Event', secondary = 'guest_event', back_populates = 'guests')
+
 
 # STRETCH CHALLENGE: Add a field `event_type` as an Enum column that denotes the
 # type of event (Party, Study, Networking, etc)
@@ -28,5 +33,12 @@ class Event(db.Model):
 # TODO: Create a table `guest_event_table` with the following columns:
 # - event_id: Integer column (foreign key)
 # - guest_id: Integer column (foreign key)
+    title = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.String(100))
+    date_and_time = db.Column(db.Date)
+    guests = db.relationship('Guest', secondary='guest_event', back_populates='events_attending')
 
-guest_event_table = None
+guest_event_table = db.Table('guest_event',
+    db.Column('event_id', db.Integer, db.ForeignKey('event.id')),
+    db.Column('guest_id', db.Integer, db.ForeignKey('guest.id'))
+)

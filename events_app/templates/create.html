@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<a href="/">Home</a>
 <h1>New Event</h1>
-
 <form method="POST">
     <p>
         <label>
@@ -19,7 +19,7 @@
     <p>
         <label>
             Date and Time: <br>
-            <input type="date" name="date" placeholder="Date format YYYY-mm-dd">
+            <input type="date" name="date" placeholder="Date format mm-dd-YYYY">
             <input type="time" name="time" placeholder="Time format HH:MM">
         </label>
     </p>
